@@ -1,0 +1,69 @@
+{
+  "random_state": 42,
+  "source": "allegro/klej-polemo2-in",
+  "source_urls": {
+    "train": "https://huggingface.co/datasets/allegro/klej-polemo2-in/resolve/main/train.csv",
+    "validation": "https://huggingface.co/datasets/allegro/klej-polemo2-in/resolve/main/valid.csv",
+    "test": "https://huggingface.co/datasets/allegro/klej-polemo2-in/resolve/main/test.csv"
+  },
+  "label_map": {
+    "__label__meta_plus_m": "plus",
+    "__label__meta_minus_m": "minus",
+    "__label__meta_zero": "zero",
+    "__label__meta_amb": "amb"
+  },
+  "classes": [
+    "plus",
+    "minus",
+    "zero",
+    "amb"
+  ],
+  "split_sizes_raw": {
+    "train": 5783,
+    "validation": 723,
+    "test": 722
+  },
+  "split_sizes_clean": {
+    "train": 5783,
+    "validation": 723,
+    "test": 722
+  },
+  "cleaning": [
+    {
+      "op": "drop_missing_text_or_label",
+      "splits": "all",
+      "removed": 0
+    },
+    {
+      "op": "flag_dup_within_split",
+      "splits": "all",
+      "flagged": 0
+    },
+    {
+      "op": "flag_dup_cross_split",
+      "splits": "all",
+      "flagged": 0
+    },
+    {
+      "op": "flag_near_dup_cross_split",
+      "splits": "all",
+      "flagged": 2
+    },
+    {
+      "op": "drop_exact_dups_within_train",
+      "splits": "train",
+      "removed": 0
+    },
+    {
+      "op": "drop_train_records_in_val_or_test",
+      "splits": "train",
+      "removed": 0
+    }
+  ],
+  "parquet_sha256": "b49d3de93a01ae957b5b85605927ab4974e1472a830eb037aab74e36138471f9",
+  "versions": {
+    "python": "3.13.5",
+    "pandas": "3.0.6",
+    "sklearn": "1.9.1"
+  }
+}
