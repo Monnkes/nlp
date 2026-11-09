@@ -26,8 +26,8 @@ Wymagane prefiksy wejścia:
 
 | miara | wartość |
 |---|---:|
-| czas utworzenia reprezentacji (1000 dok.) | 1.058 s |
-| ms/dokument | 1.058 |
+| czas utworzenia reprezentacji (1000 dok.) | 1.066 s |
+| ms/dokument | 1.066 |
 | rozmiar reprezentacji w pamięci | 1.465 MB (gęsta macierz 1000 × 384) |
 
 Pomiar na GPU, bez ładowania modelu, po rozgrzewce na 10 dokumentach. To pojedynczy pomiar, więc wartości są orientacyjne. Ponowne kodowanie dokumentów z prefiksem `passage:` do wyszukiwania nie jest wliczone.
@@ -55,17 +55,17 @@ E5 ma najwyższą purity spośród testowanych reprezentacji (`purity@5`: TF-IDF
 
 | metryka | wartość |
 |---|---:|
-| `Precision@5` | 0.500 |
-| `Precision@10` | 0.475 |
+| `Precision@5` | 0.600 |
+| `Precision@10` | 0.588 |
 
-Benchmark: 8 zapytań (po 2 na klasę), relewantność przybliżona etykietą sentymentu. MiniLM uzyskał wyższe wyniki (0.625 / 0.562), ale przy 8 zapytaniach różnica ok. 0.1 nie jest rozstrzygająca.
+Benchmark: 8 zapytań (po 2 na klasę), relewantność przybliżona etykietą sentymentu. Dla porównania MiniLM 0.600 / 0.575, TF-IDF 0.575 / 0.500. Wszystkie różnice są poniżej 0.1, więc przy 8 zapytaniach nie są rozstrzygające.
 
 ## Analiza jakościowa
 - PCA: dwie pierwsze składowe wyjaśniają tylko 17.5% wariancji (12.2% + 5.3%). PC1 rozdziela domeny (hotele i medycyna), PC2 oddziela teksty `zero` (artykuły) od recenzji. Klasy `plus`, `minus` i `amb` całkowicie się mieszają, więc sentyment nie jest widoczny w głównych kierunkach przestrzeni.
-- Dominujące typy błędów (12 przypadków, zad. 8):
-  - wspólny temat przy przeciwnym sentymencie: pary `plus`–`minus` z danych mają podobieństwo ok. 0.94,
+- Dominujące typy błędów (20 przypadków, zad. 8):
+  - wspólny temat przy przeciwnym sentymencie: pary `plus`–`minus` z danych mają podobieństwo ok. 0.93–0.95, nawet gdy łączy je tylko forma tekstu (relacja z wizyty),
   - antonimy i negacja: „miła” / „niemiła” = 0.98, „Hotel jest dobry.” / „Hotel nie jest dobry.” = 0.92,
-  - zamiana ról tych samych słów jest niewidoczna (0.98),
+  - zamiana ról tych samych słów jest niewidoczna (0.98), podobnie natężenie i porównania („w porządku” / „rewelacyjny” = 0.96, „lepszy” / „gorszy” = 0.96),
   - podobieństwa są ściśnięte wysoko: para niezwiązana tematycznie ma już 0.83, więc wartości bezwzględne słabo różnicują wyniki.
 
 ## Zastosowanie
